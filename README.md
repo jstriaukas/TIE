@@ -1,0 +1,2 @@
+# TIE
+ Tail index estimators

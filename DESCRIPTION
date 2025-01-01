@@ -1,0 +1,14 @@
+
+Package: TIE: Tail Index estimators
+Type: Package
+Title: Tail Index estimators
+Version: 1.0.0
+Authors@R: c(
+    person("Igor", "Fedotenkov",  role = c("cre","aut"), email =  "igor.fedotenkov@gmail.com"),
+    person("Jonas", "Striaukas",  role = c("cre", "aut"),email =  "jonas.striaukas@gmail.com"))
+Maintainer: Jonas Striaukas <jonas.striaukas@gmail.com>
+Description: A collection of functions to estimate the tail index.
+Depends: R (>= 3.5.0)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
