@@ -1,5 +1,3 @@
-# Cite as "Fedotenkov, Igor, 2018. "A review of more than one hundred Pareto-tail index estimators," MPRA Paper 90072, University Library of Munich, Germany."
-
 #' Hill Estimator
 #'
 #' Computes the Hill estimator, a commonly used method for estimating the tail index of heavy-tailed distributions.
