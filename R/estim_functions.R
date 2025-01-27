@@ -1,67 +1,69 @@
-#' Hill Estimator
+#' \insertCite{hill1975;textual}{TIE} estimator
 #'
-#' Computes the Hill estimator, a commonly used method for estimating the tail index of heavy-tailed distributions.
+#' Computes the \insertCite{hill1975;textual}{TIE} estimator, a commonly used method for estimating the tail index of heavy-tailed distributions.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @param k An optional integer specifying the number of top-order statistics to use. Defaults to the square root of the sample size.
 #' @return A numeric value representing the estimated tail index.
-#' @details The Hill estimator is a semi-parametric estimator based on the order statistics of the data. It is used to estimate the tail index, which characterizes the heaviness of the tail of a distribution.
-#'
+#' @details \insertCite{hill1975;textual}{TIE} estimator is a semi-parametric estimator based on the order statistics of the data. It is used to estimate the tail index, which characterizes the heaviness of the tail of a distribution.
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  #tail index = 0.5.
-#' Hill(x)
-#'
+#' x = (abs(stats::rcauchy(n)))^(2)
+#' hill(x)
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{hill1975}{TIE}
 #' @export
-Hill <- function(X, k) {
+hill <- function(X, k) {
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
   (sum(log(X[(n-k+1):n]))/k - log(X[n-k]))^(-1)
 }
 
-#' De Haan & Resnick Estimator
+#' \insertCite{Haan1980;textual}{TIE} estimator
 #'
-#' Computes the De Haan & Resnick (1981) estimator for the tail index of a heavy-tailed distribution.
+#' Computes the \insertCite{Haan1980;textual}{TIE} estimator for the tail index of a heavy-tailed distribution.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @param k An optional integer specifying the number of top-order statistics to use. Defaults to the square root of the sample size.
 #' @return A numeric value representing the estimated tail index.
-#' @details The De Haan & Resnick estimator is based on the logarithmic differences of the top-order statistics. It provides an alternative to the Hill estimator for tail index estimation.
+#' @details \insertCite{Haan1980;textual}{TIE} estimator is based on the logarithmic differences of the top-order statistics. It provides an alternative to the Hill estimator for tail index estimation.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
-#' dHR(x)
-#'
+#' x = (abs(stats::rcauchy(n)))^(2)
+#' dhr(x)
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{Haan1980}{TIE}
 #' @export
-dHR <- function(X, k) {
+dhr <- function(X, k) {
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
   log(k) / (log(X[n]) - log(X[n-k+1]))
 }
 
-#' Bacro Brito Estimator
+#' \insertCite{bacro1995;textual}{TIE} estimator
 #'
-#' Computes the Bacro Brito (1995) estimator for the tail index of a heavy-tailed distribution.
+#' Computes the \insertCite{bacro1995;textual}{TIE} estimator for the tail index of a heavy-tailed distribution.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @param k An optional integer specifying the number of top-order statistics to use. Defaults to the square root of the sample size.
 #' @param alpha An optional numeric value between 0 and 1 specifying the adjustment factor. Defaults to 0.9.
 #' @return A numeric value representing the estimated tail index.
-#' @details The Bacro Brito estimator uses a refined \code{alpha} value to calculate the tail index, providing an alternative to other estimators like the Hill estimator.
+#' @details \insertCite{bacro1995;textual}{TIE} estimator uses a refined \code{alpha} value to calculate the tail index, providing an alternative to other estimators like the Hill estimator.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
-#' BB(x)
-#'
+#' x = (abs(stats::rcauchy(n)))^(2)
+#' bb(x)
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{bacro1995}{TIE}
 #' @export
-BB <- function(X, k, alpha) {
+bb <- function(X, k, alpha) {
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
@@ -71,23 +73,24 @@ BB <- function(X, k, alpha) {
   -log(alpha) / (log(X[n-f+1]) - log(X[n-k+1]))
 }
 
-#' Pickands Estimator
+#' Pickands estimator
 #'
-#' Computes the Pickands (1975) estimator for the tail index of a heavy-tailed distribution.
+#' Computes the \insertCite{pickands1975;textual}{TIE} estimator for the tail index of a heavy-tailed distribution.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @param k An optional integer specifying the number of top-order statistics to use. Defaults to the square root of the sample size. The value of \code{k} is adjusted to be divisible by 4.
 #' @return A numeric value representing the estimated tail index.
-#' @details The Pickands estimator is based on the ratios of spacings of extreme order statistics. It is a commonly used method for estimating the tail index of heavy-tailed distributions.
+#' @details \insertCite{pickands1975;textual}{TIE} estimator is based on the ratios of spacings of extreme order statistics. It is a commonly used method for estimating the tail index of heavy-tailed distributions.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
-#' Pickands(x)
-#'
+#' x = (abs(stats::rcauchy(n)))^(2)
+#' pickands(x)
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{pickands1975}{TIE} 
 #' @export
-Pickands <- function(X, k) {
+pickands <- function(X, k) {
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
@@ -95,23 +98,24 @@ Pickands <- function(X, k) {
   log(2) / (log((X[n-k/4] - X[n-k/2]) / (X[n-k/2] - X[n-k])))
 }
 
-#' Dekkers, Einmahl, De Haan "Moment" Estimator
+#' \insertCite{dekkers1989;textual}{TIE} moment estimator
 #'
-#' Computes the Dekkers, Einmahl, De Haan (1989) "moment" estimator for the tail index of a heavy-tailed distribution.
+#' Computes the \insertCite{dekkers1989;textual}{TIE}  moment estimator for the tail index of a heavy-tailed distribution.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @param k An optional integer specifying the number of top-order statistics to use. Defaults to the square root of the sample size.
 #' @return A numeric value representing the estimated tail index.
-#' @details The DEdH estimator is based on the moments of the logarithmic differences of extreme order statistics. It is designed to reduce bias in tail index estimation by incorporating higher-order moments.
+#' @details The \insertCite{dekkers1989;textual}{TIE} estimator is based on the moments of the logarithmic differences of extreme order statistics. It is designed to reduce bias in tail index estimation by incorporating higher-order moments.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
-#' DEdH(x)
-#'
+#' x = (abs(stats::rcauchy(n)))^(2)
+#' dedh(x)
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{dekkers1989}{TIE} 
 #' @export
-DEdH <- function(X, k) {
+dedh <- function(X, k) {
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
@@ -120,24 +124,27 @@ DEdH <- function(X, k) {
   (M1 + 1 - 0.5 * (1 - M1^2 / M2)^(-1))^(-1)
 }
 
-#' Aban & Meerschaert Shifted Hill's Estimator
+
+
+#' \insertCite{aban2001;textual}{TIE} Shifted Hill's Estimator
 #'
-#' Computes the Aban & Meerschaert (2001) shifted Hill’s estimator for the tail index of a heavy-tailed distribution.
+#' Computes the \insertCite{aban2001;textual}{TIE} shifted Hill’s estimator for the tail index of a heavy-tailed distribution.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @param k An optional integer specifying the number of top-order statistics to use. Defaults to the square root of the sample size.
 #' @param eps An optional numeric value specifying the tolerance level for the iterative algorithm. Defaults to \code{1e-7}.
 #' @return A numeric value representing the estimated tail index.
-#' @details The Aban & Meerschaert shifted Hill’s estimator adjusts the Hill estimator by introducing a shift parameter to better handle small sample sizes and reduce bias. The iterative algorithm continues until the difference between the maximum and minimum shift parameter estimates is below \code{eps}.
+#' @details The \insertCite{aban2001;textual}{TIE} shifted Hill’s estimator adjusts the Hill estimator by introducing a shift parameter to better handle small sample sizes and reduce bias. The iterative algorithm continues until the difference between the maximum and minimum shift parameter estimates is below \code{eps}.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
-#' AB_Hill(x)
-#'
+#' x = (abs(stats::rcauchy(n)))^(2)
+#' am(x)
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{aban2001}{TIE} 
 #' @export
-AB_Hill <- function(X, k, eps = 1e-7) {
+am <- function(X, k, eps = 1e-7) {
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
@@ -158,67 +165,69 @@ AB_Hill <- function(X, k, eps = 1e-7) {
 }
 
 
-#' Peng Estimator (Hill Modification)
+#' \insertCite{peng1998;textual}{TIE} Estimator (Hill Modification)
 #'
-#' Computes the Peng estimator, a modification of the Hill estimator, for estimating the tail index of a heavy-tailed distribution.
+#' Computes the \insertCite{peng1998;textual}{TIE}, a modification of the Hill estimator, for estimating the tail index of a heavy-tailed distribution.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @param k An optional integer specifying the number of top-order statistics to use. Defaults to the square root of the sample size.
 #' @return A numeric value representing the estimated tail index.
-#' @details The Peng estimator refines the Hill estimator by incorporating additional moments and parameters to reduce bias. It adjusts the tail index estimation using intermediate order statistics.
+#' @details The \insertCite{peng1998;textual}{TIE} refines the Hill estimator by incorporating additional moments and parameters to reduce bias. It adjusts the tail index estimation using intermediate order statistics.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
-#' Peng_H(x)
-#'
+#' x = (abs(stats::rcauchy(n)))^(2)
+#' peng_h(x)
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{peng1998}{TIE} 
 #' @export
-Peng_H <- function(X, k) {
+peng_h <- function(X, k) {
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
   k1 <- round(n / (2 * log(n)))
   k2 <- round(n / log(n))
-  g1 <- Hill(X, k1)^(-1)
-  g2 <- Hill(X, k2)^(-1)
-  g <- Hill(X, k)^(-1)
-  M1 <- MM(X, k1)
-  M2 <- MM(X, k2)
-  M <- MM(X, k)
+  g1 <- TIE::hill(X, k1)^(-1)
+  g2 <- TIE::hill(X, k2)^(-1)
+  g <- TIE::hill(X, k)^(-1)
+  M1 <- TIE::MM(X, k1)
+  M2 <- TIE::MM(X, k2)
+  M <- TIE::MM(X, k)
   M4 <- (M1 - 2 * g1^2) / (M2 - 2 * g2^2)
   if (M4 > 0) rho <- log(2)^(-1) * log(M4) else rho <- 1
   g7 <- g - (M - 2 * g^2) * (1 - rho) / (2 * g * rho)
   g7^(-1)
 }
 
-#' Peng Estimator (Pickands Modification)
+#' \insertCite{peng1998;textual}{TIE} Estimator (Pickands Modification)
 #'
-#' Computes the Peng estimator, a modification of the Pickands estimator, for estimating the tail index of a heavy-tailed distribution.
+#' Computes the \insertCite{peng1998;textual}{TIE} estimator, a modification of the Pickands estimator, for estimating the tail index of a heavy-tailed distribution.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @param k An optional integer specifying the number of top-order statistics to use. Defaults to the square root of the sample size.
 #' @return A numeric value representing the estimated tail index.
-#' @details The Peng estimator modifies the Pickands estimator by adjusting the tail index computation using intermediate order statistics and introducing a parameter \code{rho} for bias correction.
+#' @details The \insertCite{peng1998;textual}{TIE} estimator modifies the Pickands estimator by adjusting the tail index computation using intermediate order statistics and introducing a parameter \code{rho} for bias correction.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
-#' Peng_P(x)
-#'
+#' x = (abs(stats::rcauchy(n)))^(2)
+#' peng_p(x)
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{peng1998}{TIE} 
 #' @export
-Peng_P <- function(X, k) {
+peng_p <- function(X, k) {
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
   k1 <- round(n / log(n))
   k2 <- round(n / (2 * log(n)))
   k3 <- round(n / (4 * log(n)))
-  g1 <- Pickands(X, k1)^(-1)
-  g2 <- Pickands(X, k2)^(-1)
-  g3 <- Pickands(X, k3)^(-1)
-  g <- Pickands(X, k)^(-1)
+  g1 <- pickands(X, k1)^(-1)
+  g2 <- pickands(X, k2)^(-1)
+  g3 <- pickands(X, k3)^(-1)
+  g <- pickands(X, k)^(-1)
   
   M <- (g2 - g3) / (g1 - g2)
   if (M > 0) {
@@ -230,28 +239,29 @@ Peng_P <- function(X, k) {
   g7^(-1)
 }
 
-#' Fialova, Jureckova, Picek (FJP) Estimator
+#' \insertCite{fialova2004;textual}{TIE} Estimator
 #'
-#' Computes the Fialova, Jureckova, Picek (2004) estimator for the tail index of a heavy-tailed distribution.
+#' Computes the \insertCite{fialova2004;textual}{TIE} estimator for the tail index of a heavy-tailed distribution.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @param N An optional integer specifying the number of partitions. Defaults to 5.
 #' @param alpha_0 An optional initial estimate of the tail index. Defaults to 1.2 times the Hill estimator.
 #' @param delta An optional numeric parameter controlling the adjustment of \code{a_N}. Defaults to 0.9.
 #' @return A numeric value representing the estimated tail index.
-#' @details The FJP estimator divides the sample into partitions, computes means for each partition, and calculates the tail index using an adjusted value of \code{a_N} and the empirical proportion of values below \code{a_N}. If the proportion \code{F} is not in the range (0, 1), the initial estimate \code{alpha_0} is returned.
+#' @details The \insertCite{fialova2004;textual}{TIE} estimator divides the sample into partitions, computes means for each partition, and calculates the tail index using an adjusted value of \code{a_N} and the empirical proportion of values below \code{a_N}. If the proportion \code{F} is not in the range (0, 1), the initial estimate \code{alpha_0} is returned.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
-#' FJP(x)
-#'
+#' x = (abs(stats::rcauchy(n)))^(2)
+#' fjp(x)
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{fialova2004}{TIE} 
 #' @export
-FJP <- function(X, N, alpha_0, delta) {
+fjp <- function(X, N, alpha_0, delta) {
   n <- length(X)
   if (missing(N)) N <- 5
-  if (missing(alpha_0)) alpha_0 <- Hill(X) * 1.2
+  if (missing(alpha_0)) alpha_0 <- TIE::hill(X) * 1.2
   if (missing(delta)) delta <- 0.9
   
   r <- n %/% N
@@ -272,51 +282,54 @@ FJP <- function(X, N, alpha_0, delta) {
   alpha
 }
 
-#' Van Zyl Estimator
+#' \insertCite{zyl2015;textual}{TIE} Estimator
 #'
-#' Computes the Van Zyl (2015) estimator for the tail index of a heavy-tailed distribution.
+#' Computes the \insertCite{zyl2015;textual}{TIE} estimator for the tail index of a heavy-tailed distribution.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @param k An optional integer specifying the number of top-order statistics to use. Defaults to the square root of the sample size.
 #' @return A numeric value representing the estimated tail index.
-#' @details The Van Zyl estimator incorporates the Hill estimator along with location and scale parameters to compute the tail index. It uses an adjusted logarithmic mean of the top-order statistics for better accuracy.
+#' @details The \insertCite{zyl2015;textual}{TIE} estimator incorporates the Hill estimator along with location and scale parameters to compute the tail index. It uses an adjusted logarithmic mean of the top-order statistics for better accuracy.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
-#' vanZyl(x)
-#'
+#' x = (abs(stats::rcauchy(n)))^(2)
+#' vanzyl(x)
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{zyl2015}{TIE} 
 #' @export
-vanZyl <- function(X, k) {
+vanzyl <- function(X, k) {
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
-  h_gamma <- Hill(X, k)
+  h_gamma <- TIE::hill(X, k)
   h_mu <- X[n - k]
   h_sigma <- h_mu * h_gamma
   TT <- mean(log(X[(n - k + 1):n] * h_gamma / h_sigma + 1 - h_mu * h_gamma / h_sigma))
   (TT)^(-1)
 }
 
-#' Nuyts Estimator
+
+#' \insertCite{nuyts2010;textual}{TIE} Estimator
 #'
-#' Computes the Nuyts (2015) estimator for the tail index of a heavy-tailed distribution.
+#' Computes the \insertCite{nuyts2010;textual}{TIE} estimator for the tail index of a heavy-tailed distribution.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @param k An optional integer specifying the number of top-order statistics to use. Defaults to the square root of the sample size.
 #' @param eps An optional numeric value specifying the tolerance level for the iterative algorithm. Defaults to \code{1e-9}.
 #' @return A numeric value representing the estimated tail index.
-#' @details The Nuyts estimator uses a binary search algorithm to determine the tail index. The iterative process continues until the difference between the maximum and minimum estimates is below \code{eps}. If the difference exceeds a threshold, a second iteration is performed to refine the estimate.
+#' @details The \insertCite{nuyts2010;textual}{TIE} estimator uses a binary search algorithm to determine the tail index. The iterative process continues until the difference between the maximum and minimum estimates is below \code{eps}. If the difference exceeds a threshold, a second iteration is performed to refine the estimate.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' Nuyts(x)
-#'
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{nuyts2010}{TIE} 
 #' @export
-Nuyts <- function(X, k, eps = 1e-9) {
+nuyts <- function(X, k, eps = 1e-9) {
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
@@ -368,23 +381,25 @@ VBCH1 <- function(theta, X, k) {
   w^2 * R - 2 * w * ff / k
 }
 
-#' Vandewalle, Beirlant, Christmann, and Hubert (VBCH) Estimator
+
+#' \insertCite{vandewalle2007;textual}{TIE} Estimator
 #'
-#' Computes the VBCH (2007) estimator for the tail index of a heavy-tailed distribution.
+#' Computes the \insertCite{vandewalle2007;textual}{TIE} estimator for the tail index of a heavy-tailed distribution.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @param k An optional integer specifying the number of top-order statistics to use. Defaults to the square root of the sample size.
 #' @return A numeric value representing the estimated tail index.
-#' @details The VBCH estimator minimizes the objective function defined by the \code{VBCH1} function using the \code{optim} function with the \code{L-BFGS-B} method. It uses starting values and constraints for the parameters (\code{gamma}, \code{delta}, \code{rho}, and \code{w}). The tail index is computed as the reciprocal of the optimized value of \code{gamma}.
+#' @details The \insertCite{vandewalle2007;textual}{TIE} estimator minimizes the objective function defined by the \code{VBCH1} function using the \code{optim} function with the \code{L-BFGS-B} method. It uses starting values and constraints for the parameters (\code{gamma}, \code{delta}, \code{rho}, and \code{w}). The tail index is computed as the reciprocal of the optimized value of \code{gamma}.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
-#' VBCH(x)
-#'
+#' x = (abs(stats::rcauchy(n)))^(2)
+#' vbch(x)
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{vandewalle2007}{TIE} 
 #' @export
-VBCH <- function(X, k) { 
+vbch <- function(X, k) { 
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
@@ -395,70 +410,76 @@ VBCH <- function(X, k) {
   1 / pp$par[1]
 }
 
-#' Tripathi, Kumar, Petropoulos (TKP1) Estimator
+#' \insertCite{tripathi2014;textual}{TIE} Type I Estimator
 #'
-#' Computes the TKP1 (2014) estimator for the tail index of a heavy-tailed distribution.
+#' Computes the \insertCite{tripathi2014;textual}{TIE} type I estimator for the tail index of a heavy-tailed distribution.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @param k An optional integer specifying the number of top-order statistics to use. Defaults to the square root of the sample size.
 #' @return A numeric value representing the estimated tail index.
-#' @details The TKP1 estimator is based on the ratio of logarithmic differences of top-order statistics. It is designed to provide an efficient estimate of the tail index using equation 3.2 from the original paper.
+#' @details The \insertCite{tripathi2014;textual}{TIE} type I estimator is based on the ratio of logarithmic differences of top-order statistics. It is designed to provide an efficient estimate of the tail index using equation 3.2 from the original paper.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
-#' TKP1(x)
-#'
+#' x = (abs(stats::rcauchy(n)))^(2)
+#' tpk1(x)
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{tripathi2014}{TIE}
 #' @export
-TKP1 <- function(X, k) {
+tpk1 <- function(X, k) {
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
   (k - 3) / (sum(log(X[(n - k + 1):n] / X[n - k])))
 }
-#' Tripathi, Kumar, Petropoulos (TKP2) Estimator
+
+#' \insertCite{tripathi2014;textual}{TIE} Type II Estimator
 #'
-#' Computes the TKP2 (2014) estimator for the tail index of a heavy-tailed distribution.
+#' Computes the \insertCite{tripathi2014;textual}{TIE} type II estimator for the tail index of a heavy-tailed distribution.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @param k An optional integer specifying the number of top-order statistics to use. Defaults to the square root of the sample size.
 #' @return A numeric value representing the estimated tail index.
-#' @details The TKP2 estimator is an extension of the TKP1 estimator that includes an additional term \code{max(0, log(X[n-k]))} in the denominator to improve robustness. It is based on equation 3.2 from the original paper.
+#' @details The \insertCite{tripathi2014;textual}{TIE} type II estimator is an extension of the TKP1 estimator that includes an additional term \code{max(0, log(X[n-k]))} in the denominator to improve robustness. It is based on equation 3.2 from the original paper.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
-#' TKP2(x)
-#'
+#' x = (abs(stats::rcauchy(n)))^(2)
+#' tkp2(x)
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{tripathi2014}{TIE}
 #' @export
-TKP2 <- function(X, k) {
+tkp2 <- function(X, k) {
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
   (k - 3) / (sum(log(X[(n - k + 1):n] / X[n - k])) + max(0, log(X[n - k])))
 }
 
-#' Muller Estimator
+
+
+#' \insertCite{muller2003;textual}{TIE} Estimator
 #'
-#' Computes the Muller estimator for the tail index of a heavy-tailed distribution.
+#' Computes the \insertCite{muller2003;textual}{TIE} estimator for the tail index of a heavy-tailed distribution.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @param m An optional integer specifying the number of observations to use. Defaults to the square root of the sample size.
 #' @param a1 An optional numeric value representing the first threshold parameter. Defaults to one-fourth of the range of the top \code{m} observations.
 #' @param a2 An optional numeric value representing the second threshold parameter. Defaults to half of the range of the top \code{m} observations.
 #' @return A numeric value representing the estimated tail index.
-#' @details The Muller estimator calculates the tail index using two threshold parameters (\code{a1} and \code{a2}) and indicator functions applied to the data. The thresholds are adaptively determined based on the range of the top \code{m} observations if not provided.
+#' @details The \insertCite{muller2003;textual}{TIE} estimator calculates the tail index using two threshold parameters (\code{a1} and \code{a2}) and indicator functions applied to the data. The thresholds are adaptively determined based on the range of the top \code{m} observations if not provided.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
-#' Muller(x)
-#'
+#' x = (abs(stats::rcauchy(n)))^(2)
+#' muller(x)
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{muller2003}{TIE}
 #' @export
-Muller <- function(X, m, a1, a2) { 
+muller <- function(X, m, a1, a2) { 
   X <- sort(X)
   n <- length(X)
   if (missing(m)) m <- round(sqrt(n))
@@ -475,23 +496,25 @@ Muller <- function(X, m, a1, a2) {
 }
 
 
-#' Muller and Rufibach Smoothed Pickands Estimator
+
+#' \insertCite{muller2009;textual}{TIE} Smoothed Pickands Estimator
 #'
-#' Computes the Muller and Rufibach (2009) smoothed Pickands estimator for the tail index of a heavy-tailed distribution.
+#' Computes the \insertCite{muller2009;textual}{TIE} smoothed Pickands estimator for the tail index of a heavy-tailed distribution.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @param k An optional integer specifying the number of top-order statistics to use. Defaults to the square root of the sample size.
 #' @return A numeric value representing the estimated tail index.
-#' @details The smoothed Pickands estimator employs logspline density estimation to smooth the quantiles of the data before calculating the tail index. It uses three quantiles (\code{X1}, \code{X2}, and \code{X4}) derived from the logspline density estimate to refine the Pickands ratio calculation.
+#' @details The \insertCite{muller2009;textual}{TIE} smoothed Pickands estimator employs logspline density estimation to smooth the quantiles of the data before calculating the tail index. It uses three quantiles (\code{X1}, \code{X2}, and \code{X4}) derived from the logspline density estimate to refine the Pickands ratio calculation.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
-#' MRsP(x)
-#'
+#' x = (abs(stats::rcauchy(n)))^(2)
+#' mullersp(x)
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{muller2009}{TIE}
 #' @export
-MRsP <- function(X, k) {              
+mullersp <- function(X, k) {              
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
@@ -503,29 +526,30 @@ MRsP <- function(X, k) {
   log(2) / (log((X1 - X2) / (X2 - X4)))
 }
 
-#' Meerschaert and Scheffer Estimator
+#' \insertCite{meerschaert1998;textual}{TIE} estimator
 #'
-#' Computes the Meerschaert and Scheffer (1998) estimator for the tail index of a heavy-tailed distribution.
+#' Computes the \insertCite{meerschaert1998;textual}{TIE} estimator for the tail index of a heavy-tailed distribution.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @return A numeric value representing the estimated tail index.
-#' @details The Meerschaert and Scheffer estimator calculates the tail index using the variance of the sample around its mean. It is based on the relationship between the logarithm of the sample size and the logarithm of the sample variance.
+#' @details The \insertCite{meerschaert1998;textual}{TIE} estimator calculates the tail index using the variance of the sample around its mean. It is based on the relationship between the logarithm of the sample size and the logarithm of the sample variance.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
-#' MS(x)
-#'
+#' x = (abs(stats::rcauchy(n)))^(2)
+#' ms(x)
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{meerschaert1998}{TIE}
 #' @export
-MS <- function(X) {
+ms <- function(X) {
   n <- length(X)
   m <- mean(X)
   S <- sum((X - m)^2)
   (2 * log(n)) / max(0, log(S))
 }
 
-pl <- function(X) {          
+compute_pl <- function(X) {          
   n <- length(X)
   I <- c(1:n)
   
@@ -540,30 +564,31 @@ pl <- function(X) {
   2 / (D1 / D2 + 1)
 }
 
-#' Politis Estimator (2002)
+#' \insertCite{politis2002;textual}{TIE} estimator 
 #'
-#' Computes the Politis (2002) tail index estimator for a heavy-tailed distribution using a bootstrap approach.
+#' Computes the \insertCite{politis2002;textual}{TIE} tail index estimator for a heavy-tailed distribution using a bootstrap approach.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @return A numeric value representing the estimated tail index.
-#' @details The Politis estimator applies a bootstrap procedure to compute the median of tail index estimates derived from resampled datasets. The tail index for each resampled dataset is calculated using the \code{pl} function, which estimates the power-law tail index.
+#' @details The \insertCite{politis2002;textual}{TIE} estimator applies a bootstrap procedure to compute the median of tail index estimates derived from resampled datasets. The tail index for each resampled dataset is calculated using the \code{pl} function, which estimates the power-law tail index.
 #' 
 #' The function uses \code{m = 1000} bootstrap iterations by default.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
-#' Politis(x)
-#'
+#' x = (abs(stats::rcauchy(n)))^(2)
+#' pl(x)
+#' @importFrom Rdpack reprompt
+#' @references \insertRef{politis2002}{TIE}
 #' @export
-Politis <- function(X) { # Politis 2002
+pl <- function(X) { 
   n <- length(X)
   m <- 1000  # Number of bootstraps
   alpha <- vector(length = m)
   for (i in 1:m) {
     Y <- sample(X, n, replace = FALSE)
-    alpha[i] <- pl(Y)
+    alpha[i] <- compute_pl(Y)
   }
   median(alpha)
 }
@@ -580,7 +605,7 @@ Politis <- function(X) { # Politis 2002
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' MEP_BAS(x)
 #'
 #' @export
@@ -601,7 +626,7 @@ MEP_BAS <- function(X, r) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' MEP_CEN(x)
 #'
 #' @export
@@ -625,7 +650,7 @@ MEP_CEN <- function(X) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' MEP_CEN(x)
 #'
 #' @export
@@ -649,7 +674,7 @@ MEP_CEN <- function(X) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' MEP_SCEN(x)
 #'
 #' @export
@@ -678,7 +703,7 @@ MEP_SCEN <- function(X) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' MEP_RCEN(x)
 #'
 #' @export
@@ -707,7 +732,7 @@ MEP_RCEN <- function(X) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' MEP_SRCEN(x)
 #'
 #' @export
@@ -737,7 +762,7 @@ MEP_SRCEN <- function(X) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' Falk(x)
 #'
 #' @export
@@ -763,7 +788,7 @@ Falk <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' Zipf(x)
 #'
 #' @export
@@ -791,13 +816,13 @@ Zipf <- function(X, k, w) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' AM1(x)
 #'
 #' @export
 AM1 <- function(X, k) {          
   if (missing(k)) k <- round(sqrt(length(X)))
-  Hill(X, k) * k / (k - 1)
+  TIE::hill(X, k) * k / (k - 1)
 }
 
 #' Aban & Meerschaert Simplified Estimator
@@ -812,7 +837,7 @@ AM1 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' AM2(x)
 #'
 #' @export
@@ -842,7 +867,7 @@ AM2 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' AM3(x)
 #'
 #' @export
@@ -869,7 +894,7 @@ AM3 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GI1(x)
 #'
 #' @export
@@ -896,7 +921,7 @@ GI1 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GI2(x)
 #'
 #' @export
@@ -927,7 +952,7 @@ GI2 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GI3(x)
 #'
 #' @export
@@ -958,7 +983,7 @@ GI3 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' BVT(x)
 #'
 #' @export
@@ -969,7 +994,7 @@ BVT <- function(X, k) {
   UH <- rep(0, k)
   
   for (j in 1:k) {
-    UH[j] <- X[n - j] * (Hill(X, j)^(-1))
+    UH[j] <- X[n - j] * (TIE::hill(X, j)^(-1))
   }
   
   x <- -log(c(1:(k)) / n)
@@ -990,7 +1015,7 @@ BVT <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' BDG(x)
 #'
 #' @export
@@ -1000,7 +1025,7 @@ BDG <- function(X, k) {
   if (missing(k)) k <- round(sqrt(n))
   UH <- rep(0, k)
   for (j in 1:k) {
-    UH[j] <- X[n - j] * (Hill(X, j)^(-1))
+    UH[j] <- X[n - j] * (TIE::hill(X, j)^(-1))
   }
   
   I <- log((k + 1) / c(1:k))
@@ -1020,7 +1045,7 @@ BDG <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' BDG_H(x)
 #'
 #' @export
@@ -1030,9 +1055,9 @@ BDG_H <- function(X, k) {
   if (missing(k)) k <- round(sqrt(n))
   UH <- rep(0, k)
   for (j in 1:k) {
-    UH[j] <- X[n - j] * (Hill(X, j)^(-1))
+    UH[j] <- X[n - j] * (TIE::hill(X, j)^(-1))
   }
-  Hill(UH, (k - 1))
+  TIE::hill(UH, (k - 1))
 }
 
 #' Schultze and Steinebach Estimator
@@ -1047,7 +1072,7 @@ BDG_H <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' SS(x)
 #'
 #' @export
@@ -1073,7 +1098,7 @@ SS <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' SS2(x)
 #'
 #' @export
@@ -1101,7 +1126,7 @@ SS2 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' BVT2(x)
 #'
 #' @export
@@ -1130,7 +1155,7 @@ BVT2 <- function(X, k, w) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' BF1(x)
 #'
 #' @export
@@ -1157,7 +1182,7 @@ BF1 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' DJV(x)
 #'
 #' @export
@@ -1183,7 +1208,7 @@ DJV <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' DPR1(x)
 #'
 #' @export
@@ -1215,7 +1240,7 @@ DPR1 <- function(X, m) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' DPR(x)
 #'
 #' @export
@@ -1250,7 +1275,7 @@ DPR <- function(X, M) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GDPR1(x)
 #'
 #' @export
@@ -1293,7 +1318,7 @@ GDPR1 <- function(X, m, r) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GDPR(x)
 #'
 #' @export
@@ -1321,7 +1346,7 @@ GDPR <- function(X, M) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' Qi1(x)
 #'
 #' @export
@@ -1334,12 +1359,12 @@ Qi1 <- function(X, m) {
   HH <- vector(length = (r + 1))  # Vector for group-specific Hill estimates
   for (i in 1:r) {
     x1 <- X[((i - 1) * m + 1):(i * m)]
-    HH[i] <- Hill(x1, k)
+    HH[i] <- TIE::hill(x1, k)
   }
   x1 <- X[(m * r + 1):n]  # Last group formed from remaining observations
   n1 <- length(x1)
   k <- round(sqrt(n1))
-  HH[r + 1] <- Hill(x1, k)
+  HH[r + 1] <- TIE::hill(x1, k)
   mean(HH)
 }
 
@@ -1358,7 +1383,7 @@ Qi1 <- function(X, m) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' Qi(x)
 #'
 #' @export
@@ -1394,7 +1419,7 @@ Qi <- function(X, M) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' Vaiciulis(x)
 #'
 #' @export
@@ -1446,7 +1471,7 @@ Vaiciulis <- function(X, m, l) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' Vaiciulis2009(x)
 #'
 #' @export
@@ -1483,7 +1508,7 @@ Vaiciulis2009 <- function(X, m) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' VP_H(x)
 #'
 #' @export
@@ -1522,7 +1547,7 @@ VP_H <- function(X, k, r) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' VP_M(x)
 #'
 #' @export
@@ -1566,7 +1591,7 @@ VP_M <- function(X, k, r) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' VP_V(x)
 #'
 #' @export
@@ -1592,52 +1617,17 @@ VP_V <- function(X, k, r) {
   2 * H12 / H2
 }
 
-#' Vaiciulis and Paulauskas Function \( G \)
-#'
-#' Computes the Vaiciulis and Paulauskas (2017) function \( G \), which is used in the context of tail index estimation for heavy-tailed distributions.
-#'
-#' @param X A numeric vector containing the data sample.
-#' @param k An optional integer specifying the number of top-order statistics to use. Defaults to the square root of the sample size.
-#' @param r An optional numeric parameter controlling the power transformation. Defaults to \code{-0.1}.
-#' @param u An optional numeric parameter controlling the logarithmic transformation. Defaults to \code{0}.
-#' @return A numeric value representing the mean of the transformed top-order statistics based on the specified parameters \code{r} and \code{u}.
-#' @details The function \( G \) transforms the scaled top-order statistics using a generalized formula:
-#' - The scaled statistics are calculated as \( Y = X_{(n-k+1):n} / X_{(n-k)} \).
-#' - The transformation is defined as \( g = Y^r \cdot (\log(Y))^u \), where \code{r} and \code{u} are parameters.
-#' - The output is the mean of the transformed values (\( g \)).
-#'
-#' This function is used in various tail index estimation methodologies as a flexible tool for applying power and logarithmic transformations to order statistics.
-#'
-#' @examples
-#' set.seed(123)
-#' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
-#' G(x)
-#'
-#' @export
-G <- function(X, k, r, u) {           
-  X <- sort(X)
-  n <- length(X)
-  if (missing(k)) k <- round(sqrt(n))
-  if (missing(r)) r <- -0.1
-  if (missing(u)) u <- 0
-  
-  Y <- X[(n - k + 1):n] / X[n - k]
-  g <- Y^r * log(Y)^u
-  mean(g)
-}
-
 #' Vaiciulis and Paulauskas Gamma\(_2\) Estimator
 #'
-#' Computes the Vaiciulis and Paulauskas (2017) Gamma\(_2\) estimator (\(\gamma_2\)) for the tail index of a heavy-tailed distribution, as described on page 6 of their paper.
+#' Computes the Vaiciulis and Paulauskas (2017) Gamma\(_2\) estimator (\eqn{\gamma_2}) for the tail index of a heavy-tailed distribution, as described on page 6 of their paper.
 #'
 #' @param X A numeric vector containing the data sample.
 #' @param k An optional integer specifying the number of top-order statistics to use. Defaults to the square root of the sample size.
 #' @param r An optional numeric parameter controlling the transformation. Defaults to \code{-0.1}.
-#' @return A numeric value representing the estimated tail index \(\gamma_2\).
-#' @details This estimator relies on the transformation provided by the Vaiciulis and Paulauskas \( G \) function:
-#' - The function \( G \) is called with \( r \) and logarithmic transformation parameter \( u = 1 \).
-#' - The tail index \(\gamma_2\) is computed using the formula:
+#' @return A numeric value representing the estimated tail index \eqn{\gamma_2}.
+#' @details This estimator relies on the transformation provided by the Vaiciulis and Paulauskas \eqn{g} function:
+#' - The function \eqn{g} is called with \( r \) and logarithmic transformation parameter \( u = 1 \).
+#' - The tail index \eqn{\gamma_2} is computed using the formula:
 #'   \[
 #'   \gamma_2 = \frac{D_2}{D_1}, \quad \text{where } D_1 = 2 \cdot G_1 \text{ and } D_2 = 2r \cdot G_1 + 1 + \sqrt{4r \cdot G_1 + 1}.
 #'   \]
@@ -1645,7 +1635,7 @@ G <- function(X, k, r, u) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' VP_2(x)
 #'
 #' @export
@@ -1670,8 +1660,8 @@ VP_2 <- function(X, k, r) {
 #' @param k An optional integer specifying the number of top-order statistics to use. Defaults to the square root of the sample size.
 #' @param r An optional numeric parameter controlling the transformation. Defaults to \code{-0.1}.
 #' @return A numeric value representing the estimated tail index \(\gamma_3\).
-#' @details This estimator uses the transformation provided by the Vaiciulis and Paulauskas \( G \) function:
-#' - The function \( G \) is called with parameters \( r \) and \( u = 0 \) to compute \( G_0 \), and with \( u = 1 \) to compute \( G_1 \).
+#' @details This estimator uses the transformation provided by the Vaiciulis and Paulauskas \eqn{g} function:
+#' - The function \eqn{g} is called with parameters \( r \) and \( u = 0 \) to compute \( G_0 \), and with \( u = 1 \) to compute \( G_1 \).
 #' - The tail index \(\gamma_3\) is computed using the formula:
 #'   \[
 #'   \gamma_3 = \begin{cases} 
@@ -1686,7 +1676,7 @@ VP_2 <- function(X, k, r) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' VP_3(x)
 #'
 #' @export
@@ -1726,7 +1716,7 @@ VP_3 <- function(X, k, r) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' JP2004a(x)
 #'
 #' @export
@@ -1767,7 +1757,7 @@ JP2004a <- function(X, m, delta) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' JP2004(x)
 #'
 #' @export
@@ -1804,7 +1794,7 @@ JP2004 <- function(X, M) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' BCF(x)
 #'
 #' @export
@@ -1834,20 +1824,20 @@ BCF <- function(X, k) {
 #' @param k2 An optional integer specifying the number of top-order statistics to use for the adjustment. Defaults to \(\max(0.9 \cdot n, k)\).
 #' @return A numeric value representing the adjusted tail index estimate.
 #' @details This estimator adjusts the BCF tail index by incorporating additional parameters:
-#' - The initial tail index estimate (\(g\)) is computed using the \code{BCF} function.
-#' - The adjustment parameters (\(\beta, \rho\)) are computed using the \code{beta} and \code{rho} functions, respectively.
-#' - The adjusted tail index (\(g_2\)) is calculated using the formula:
+#' - The initial tail index estimate \eqn{g} is computed using the \code{BCF} function.
+#' - The adjustment parameters (\eqn{\beta, \rho}) are computed using the \code{beta} and \code{rho} functions, respectively.
+#' - The adjusted tail index (\eqn{g_2}) is calculated using the formula:
 #'   \[
 #'   g_2 = g \cdot \left(1 - \frac{(n / k)^r \cdot \beta}{(1 - r)^2}\right),
 #'   \]
-#'   where \( g \) is the initial BCF estimate, \( \beta \) and \( \rho \) are adjustment parameters, and \( n \) and \( k \) are sample and group sizes.
+#'   where \eqn{g} is the initial BCF estimate, (\eqn{\beta}) and (\eqn{\rho}) are adjustment parameters, and \( n \) and \( k \) are sample and group sizes.
 #'
 #' This method provides a bias-corrected estimate of the tail index.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' BCF2(x)
 #'
 #' @export
@@ -1873,20 +1863,20 @@ BCF2 <- function(X, k, k2) {
 #' @param k2 An optional integer specifying the number of top-order statistics to use for the adjustment. Defaults to \(\max(0.9 \cdot n, k)\).
 #' @return A numeric value representing the adjusted tail index estimate.
 #' @details This estimator adjusts the BCF tail index by incorporating an exponential correction:
-#' - The initial tail index estimate (\(g\)) is computed using the \code{BCF} function.
-#' - The adjustment parameters (\(\beta, \rho\)) are computed using the \code{beta} and \code{rho} functions, respectively.
-#' - The adjusted tail index (\(g_2\)) is calculated using the formula:
+#' - The initial tail index estimate \eqn{g} is computed using the \code{BCF} function.
+#' - The adjustment parameters (\eqn{\beta, \rho}) are computed using the \code{beta} and \code{rho} functions, respectively.
+#' - The adjusted tail index (\eqn{g_2}) is calculated using the formula:
 #'   \[
 #'   g_2 = g \cdot \exp\left(-\frac{(n / k)^r \cdot \beta}{(1 - r)^2}\right),
 #'   \]
-#'   where \( g \) is the initial BCF estimate, \( \beta \) and \( \rho \) are adjustment parameters, and \( n \) and \( k \) are sample and group sizes.
+#'   where \eqn{g} is the initial BCF estimate, (\eqn{\beta}) and (\eqn{\rho}) are adjustment parameters, and \( n \) and \( k \) are sample and group sizes.
 #'
 #' This method provides a refined, bias-corrected estimate of the tail index using an exponential adjustment.
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' BCF3(x)
 #'
 #' @export
@@ -1920,7 +1910,7 @@ BCF3 <- function(X, k, k2) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' HKKP(x)
 #'
 #' @export
@@ -1931,7 +1921,7 @@ HKKP <- function(X, k) {
   HH <- vector(length = (k - 3))
   ind <- c(4:k)
   for (i in 4:k) {
-    HH[i - 3] <- Hill(X, i)
+    HH[i - 3] <- TIE::hill(X, i)
   }
   rg <- lm(HH ~ ind)
   rg$coefficients[1]
@@ -1948,13 +1938,13 @@ HKKP <- function(X, k) {
 #' @details This estimator is based on the ratio of the sum of squares of the top \( k \) order statistics to the sum of squares of the remaining order statistics:
 #' - The top-order statistics are used to compute \( D_1 \), which is the product of \( k \) and the square of the \( (n-k) \)-th order statistic.
 #' - The lower-order statistics are used to compute \( D_2 \), which is the sum of the squares of the remaining observations.
-#' - The intermediate parameter \( \beta \) is defined as \( \beta = D_1 / D_2 \).
+#' - The intermediate parameter (\eqn{\beta}) is defined as \( \beta = D_1 / D_2 \).
 #' - The tail index is derived as \( \frac{2}{\beta + 1} \).
 #'
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' dHP(x)
 #'
 #' @export
@@ -1984,7 +1974,7 @@ dHP <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' Fan(x)
 #'
 #' @export
@@ -2019,7 +2009,7 @@ Fan <- function(X, m) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' DJV(x)
 #'
 #' @export
@@ -2060,7 +2050,7 @@ DJV <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' Segers2001(x)
 #'
 #' @export
@@ -2095,7 +2085,7 @@ Segers2001 <- function(X, k, p) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GM1(x)
 #'
 #' @export
@@ -2130,7 +2120,7 @@ GM1 <- function(X, k, alpha) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GM2(x)
 #'
 #' @export
@@ -2164,7 +2154,7 @@ GM2 <- function(X, k, alpha) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' CGP1(x)
 #'
 #' @export
@@ -2202,7 +2192,7 @@ CGP1 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' CGP2(x)
 #'
 #' @export
@@ -2236,7 +2226,7 @@ CGP2 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GMN1(x)
 #'
 #' @export
@@ -2244,7 +2234,7 @@ GMN1 <- function(X, k) {
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
-  g1 <- (Hill(X, k))^(-1)
+  g1 <- (TIE::hill(X, k))^(-1)
   g2 <- (DJV(X, k))^(-1)
   (2 * g2 - g1)^(-1)
 }
@@ -2269,7 +2259,7 @@ GMN1 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GMN2(x)
 #'
 #' @export
@@ -2277,7 +2267,7 @@ GMN2 <- function(X, k) {
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
-  g1 <- (Hill(X, k))^(-1)
+  g1 <- (TIE::hill(X, k))^(-1)
   g3 <- (GM2(X, k, 2))^(-1)
   4 * g3 - 3 * g1
 }
@@ -2303,7 +2293,7 @@ GMN2 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GMN3(x)
 #'
 #' @export
@@ -2336,7 +2326,7 @@ GMN3 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GMN4(x)
 #'
 #' @export
@@ -2344,8 +2334,8 @@ GMN4 <- function(X, k) {
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
-  g1 <- (Hill(X, round(k / 2)))^(-1)
-  g2 <- (Hill(X, k))^(-1)
+  g1 <- (TIE::hill(X, round(k / 2)))^(-1)
+  g2 <- (TIE::hill(X, k))^(-1)
   (2 * g1 - g2)^(-1)
 }
 
@@ -2373,7 +2363,7 @@ GMN4 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GM3(x)
 #'
 #' @export
@@ -2410,7 +2400,7 @@ GM3 <- function(X, k, tau) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GM4(x)
 #'
 #' @export
@@ -2420,8 +2410,8 @@ GM4 <- function(X, k, tau) {
   if (missing(k)) k <- round(sqrt(n))
   if (missing(tau)) tau <- 0
   rho1 <- rho(X, k, 0)
-  g2 <- (Hill(X, round(k / 2)))^(-1)
-  g3 <- (Hill(X, k))^(-1)
+  g2 <- (TIE::hill(X, round(k / 2)))^(-1)
+  g3 <- (TIE::hill(X, k))^(-1)
   (1 - 2^(-rho1)) / (g3 - 2^(-rho1) * g2)
 }
 
@@ -2434,7 +2424,7 @@ GM4 <- function(X, k, tau) {
 #' @return A numeric value representing the estimated tail index.
 #' @details This estimator refines the tail index using a leave-one-out Jackknife approach:
 #' - For each observation \( i \), the inverse Hill estimator (\( \gamma_{n1,i} \)) is computed using the sample with the \( i \)-th observation removed.
-#' - The overall inverse Hill estimator (\( g \)) is computed for the full sample.
+#' - The overall inverse Hill estimator (\eqn{g}) is computed for the full sample.
 #' - The mean of the leave-one-out estimates (\( \bar{\gamma}_{n1} \)) is calculated.
 #' - The tail index is then computed using:
 #'   \[
@@ -2446,7 +2436,7 @@ GM4 <- function(X, k, tau) {
 #' @examples
 #' set.seed(123)
 #' n = 100
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GMNj1(x)
 #'
 #' @export
@@ -2460,10 +2450,10 @@ GMNj1 <- function(X, k) {
     ind <- rep(TRUE, n)
     ind[i] <- FALSE  # i-th element is removed
     X1 <- X[ind]
-    gamma_n1[i] <- (Hill(X1, k))^(-1)
+    gamma_n1[i] <- (TIE::hill(X1, k))^(-1)
   }
   
-  g <- (Hill(X, k))^(-1)
+  g <- (TIE::hill(X, k))^(-1)
   bar_g <- mean(gamma_n1)
   (n * g - (n - 1) * bar_g)^(-1)
 }
@@ -2492,7 +2482,7 @@ GMNj1 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GMNj2(x)
 #'
 #' @export
@@ -2500,8 +2490,8 @@ GMNj2 <- function(X, k) {
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n) / 2) * 2
-  g2 <- (Hill(X, round(k / 2)))^(-1)
-  g1 <- (Hill(X, k))^(-1)
+  g2 <- (TIE::hill(X, round(k / 2)))^(-1)
+  g1 <- (TIE::hill(X, k))^(-1)
   w <- log(1 - k / n) / log(1 - k / (2 * n))
   (1 - w) / (g1 - g2 * w)
 }
@@ -2526,7 +2516,7 @@ GMNj2 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GMNj3(x)
 #'
 #' @export
@@ -2534,8 +2524,8 @@ GMNj3 <- function(X, k) {
   X <- sort(X)
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n) / 2) * 2
-  g2 <- (Hill(X, round(k / 2)))^(-1)
-  g1 <- (Hill(X, k))^(-1)
+  g2 <- (TIE::hill(X, round(k / 2)))^(-1)
+  g1 <- (TIE::hill(X, k))^(-1)
   (1 + k / n) / (g2 * (2 + k / n) - g1)
 }
 
@@ -2559,7 +2549,7 @@ GMNj3 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GPM(x)
 #'
 #' @export
@@ -2593,7 +2583,7 @@ GPM <- function(X, s, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GPMj(x)
 #'
 #' @export
@@ -2628,7 +2618,7 @@ GPMj <- function(X, s, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GFM(x)
 #'
 #' @export
@@ -2638,7 +2628,7 @@ GFM <- function(X, k) {
   if (missing(k)) k <- round(sqrt(n))
   H <- vector(length = k)
   for (i in 1:k) {
-    H[i] <- Hill(X, i)^(-1)
+    H[i] <- TIE::hill(X, i)^(-1)
   }
   ind <- c(1:(k - 1))
   (sum(H[1:(k - 1)] * ind) * 6 / (k^2 - 1) - H[k] * (2 * k - 1) / (k + 1))^(-1)
@@ -2672,7 +2662,7 @@ GFM <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GFM2(x)
 #'
 #' @export
@@ -2716,7 +2706,7 @@ GFM2 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' CG(x)
 #'
 #' @export
@@ -2755,7 +2745,7 @@ CG <- function(X, k, alpha) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GMV1(x)
 #'
 #' @export
@@ -2790,7 +2780,7 @@ GMV1 <- function(X, k, alpha) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GMV2(x)
 #'
 #' @export
@@ -2828,7 +2818,7 @@ GMV2 <- function(X, k, alpha) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GMV3(x)
 #'
 #' @export
@@ -2872,7 +2862,7 @@ GMV3 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GMV4(x)
 #'
 #' @export
@@ -2924,7 +2914,7 @@ GMV4 <- function(X, k, eps) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GMV5(x)
 #'
 #' @export
@@ -2967,7 +2957,7 @@ GMV5 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' BFGV(x)
 #'
 #' @export
@@ -2995,7 +2985,7 @@ BFGV <- function(X, k) {
   U0 <- ind0 * (log(X[n - ind0 + 1]) - log(X[n - ind0]))
   D0 <- mean((ind0 / (k0 + 1))^(-2 * r) * U0)
   
-  H <- Hill(X, k)^(-1)
+  H <- TIE::hill(X, k)^(-1)
   (H - beta * (n / k)^r * D0)^(-1)
 }
 
@@ -3026,7 +3016,7 @@ BFGV <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' AGHN(x)
 #'
 #' @export
@@ -3072,7 +3062,7 @@ AGHN <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' AGHN_port(x)
 #'
 #' @export
@@ -3122,7 +3112,7 @@ AGHN_port <- function(X, k, p) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' BGP(x)
 #'
 #' @export
@@ -3138,14 +3128,14 @@ BGP <- function(X, k, p) {
     if (k > (0.9 * n)) k <- round(0.9 * n)
   } 
   if (missing(p)) {
-    H <- 1 / Hill(X)
+    H <- 1 / TIE::hill(X)
     r <- rho(X)
     phi <- 1 - r / 2 - 0.5 * sqrt(r^2 - 4 * r + 2)
     phi <- min(max(0, phi), sqrt(2) / 2)
     p <- phi / H
   }
   if (p == 0) {
-    alpha <- Hill(X, k)
+    alpha <- TIE::hill(X, k)
   } else {
     ind <- 1:k
     U <- (X[n - ind + 1] / X[n - k])^p
@@ -3192,7 +3182,7 @@ BGP <- function(X, k, p) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' CGBW(x)
 #'
 #' @export
@@ -3203,7 +3193,7 @@ CGBW <- function(X, k, p) {
   
   r <- rho(X)
   B <- beta(X)
-  H <- 1 / Hill(X)
+  H <- 1 / TIE::hill(X)
   
   if (missing(p)) {
     phi <- 1 - r / 2 - 0.5 * sqrt(r^2 - 4 * r + 2)
@@ -3214,7 +3204,7 @@ CGBW <- function(X, k, p) {
   }
   
   if (p == 0) {
-    gamma <- 1 / Hill(X, k)
+    gamma <- 1 / TIE::hill(X, k)
   } else {
     ind <- 1:k
     U <- (X[n - ind + 1] / X[n - k])^p
@@ -3245,7 +3235,7 @@ CGBW <- function(X, k, p) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GRM_port(x)
 #'
 #' @export
@@ -3279,7 +3269,7 @@ GRM_port <- function(X, k, q) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GHR_port(x)
 #'
 #' @export
@@ -3312,7 +3302,7 @@ GHR_port <- function(X, k, q) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' Alves1995(x)
 #'
 #' @export
@@ -3345,7 +3335,7 @@ Alves1995 <- function(X, k, c) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' Alves(x)
 #'
 #' @export
@@ -3376,7 +3366,7 @@ Alves <- function(X, k, k0) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' Weis(x)
 #'
 #' @export
@@ -3429,7 +3419,7 @@ FH_MLE1 <- function(par, X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' FH_MLE(x)
 #'
 #' @export
@@ -3474,7 +3464,7 @@ FH_MLE <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' params <- c(0, 1, 0.5)  # Initial parameter guesses
 #' FH_MLE2(params, x)
 #'
@@ -3531,7 +3521,7 @@ FH_MLE2 <- function(par, X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GM_FH(x)
 #'
 #' @export
@@ -3540,7 +3530,7 @@ GM_FH <- function(X, k) {
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
   U <- (1:(n - 1)) * (log(X[n:2]) - log(X[(n - 1):1]))
-  g1 <- Hill(X, k)^(-1)
+  g1 <- TIE::hill(X, k)^(-1)
   g2 <- mean(U[1:k])
   g3 <- sum((2 * c(1:k) - k - 1) * U[1:k])
   g4 <- sum(c(1:k) * (2 * c(1:k) - k - 1) * U[1:k])
@@ -3581,7 +3571,7 @@ GM_FH <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' GM_FH2(x)
 #'
 #' @export
@@ -3616,7 +3606,7 @@ GM_FH2 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' SAG(x)
 #'
 #' @export
@@ -3629,7 +3619,7 @@ SAG <- function(X, k, q) {
   n <- length(Y)
   if (missing(k)) k <- round(sqrt(n))
   
-  Hill(Y, k)
+  TIE::hill(Y, k)
 }
 
 #' Smith Tail Index Estimator
@@ -3663,7 +3653,7 @@ SAG <- function(X, k, q) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' Smith(x)
 #'
 #' @export
@@ -3712,7 +3702,7 @@ Smith <- function(X, u) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' BP(x)
 #'
 #' @export
@@ -3766,7 +3756,7 @@ BP <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' BP1(x)
 #'
 #' @export
@@ -3829,7 +3819,7 @@ BP1 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' BP2(x)
 #'
 #' @export
@@ -3838,7 +3828,7 @@ BP2 <- function(X, k) {
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
   
-  H <- Hill(X, k)^(-1)
+  H <- TIE::hill(X, k)^(-1)
   
   ind <- c(1:k)
   X1 <- log((ind - 0.5) / k)
@@ -3879,7 +3869,7 @@ BP2 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' BP3(x)
 #'
 #' @export
@@ -3888,7 +3878,7 @@ BP3 <- function(X, k) {
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
   
-  H <- Hill(X, k)
+  H <- TIE::hill(X, k)
   M2 <- MM(X, k, 2)
   
   (2 + 1 / H) * 2 / M2 - 2 * H * (2 / M2)^0.5
@@ -3921,7 +3911,7 @@ BP3 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' BP4(x)
 #'
 #' @export
@@ -3930,7 +3920,7 @@ BP4 <- function(X, k) {
   n <- length(X)
   if (missing(k)) k <- round(sqrt(n))
   
-  H <- Hill(X, k)
+  H <- TIE::hill(X, k)
   M2 <- MM(X, k, 2)
   
   -H^2 + (1 / H + 1) * 2 / M2
@@ -3960,7 +3950,7 @@ BP4 <- function(X, k) {
 #' @examples
 #' set.seed(123)
 #' n = 1000
-#' x = (abs(stats::rcauchy(n)))^(2)  # tail index = 0.5.
+#' x = (abs(stats::rcauchy(n)))^(2)
 #' HWm(x)
 #'
 #' @export
